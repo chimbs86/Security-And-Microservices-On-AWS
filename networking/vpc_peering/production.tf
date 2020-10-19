@@ -41,6 +41,9 @@ resource "aws_vpc_peering_connection" "shared_prod_peering_connection" {
 
 resource "aws_route_table" "production_route" {
   vpc_id = aws_vpc.production.id
+  tags = {
+    Name = "Production Route Table"
+  }
   route {
     cidr_block = "10.2.0.0/16"
     vpc_peering_connection_id = aws_vpc_peering_connection.dev_prod_peering_connection.id

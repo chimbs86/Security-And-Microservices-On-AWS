@@ -28,6 +28,9 @@ resource "aws_vpc_peering_connection" "dev_shared_peering" {
 }
 resource "aws_route_table" "development_routeTable" {
   vpc_id = aws_vpc.development.id
+  tags = {
+    Name = "Development Route Table"
+  }
   route {
     cidr_block = "10.3.0.0/16"
     vpc_peering_connection_id = aws_vpc_peering_connection.dev_shared_peering.id
