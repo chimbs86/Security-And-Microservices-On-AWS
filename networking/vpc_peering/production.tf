@@ -53,4 +53,10 @@ resource "aws_route_table" "production_route" {
     vpc_peering_connection_id = aws_vpc_peering_connection.shared_prod_peering_connection.id
   }
 
+
+
+}
+resource "aws_main_route_table_association" "main_table_prod"{
+route_table_id = aws_route_table.production_route.id
+  vpc_id = aws_vpc.production.id
 }
