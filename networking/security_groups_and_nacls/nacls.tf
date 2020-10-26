@@ -2,7 +2,7 @@
 
 resource "aws_network_acl" "block_smb_port" {
   vpc_id = aws_vpc.production_customer.id
-subnet_id = aws_subnet.production_customer_a.id
+subnet_ids = [aws_subnet.production_customer_a.id]
   egress {
     protocol   = "tcp"
     rule_no    = 100
