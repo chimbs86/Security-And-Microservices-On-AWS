@@ -8,5 +8,8 @@ provider "random" {
   version = "2.2"
 }
 
-
+variable "aws_region" {
+  type    = string
+  default = "us-west-1"
+}
 
