@@ -1,6 +1,6 @@
 resource "aws_api_gateway_rest_api" "ECommerceMarketingAPI" {
-  name        = "MyDemoAPI"
-  description = "This is my API for demonstration purposes"
+  name        = "Campaign management API"
+  description = "Contains all methoeds related to campaign management"
 }
 
 resource "aws_api_gateway_resource" "GetCampaignIdResource" {
@@ -9,7 +9,7 @@ resource "aws_api_gateway_resource" "GetCampaignIdResource" {
   path_part   = "getCapmaignId"
 }
 
-resource "aws_api_gateway_method" "MyDemoMethod" {
+resource "aws_api_gateway_method" "GetCampaignId" {
   rest_api_id   = aws_api_gateway_rest_api.ECommerceMarketingAPI.id
   resource_id   = aws_api_gateway_resource.GetCampaignIdResource.id
   http_method   = "GET"
