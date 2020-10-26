@@ -3,17 +3,12 @@ variable "aws_region" {
   default = "us-west-1"
 }
 
-variable "db_table_name" {
-  type    = string
-  default = "terraform-learn"
+provider "aws" {
+  version = "2.33.0"
+
+  region = var.aws_region
 }
 
-variable "db_read_capacity" {
-  type    = number
-  default = 1
-}
-
-variable "db_write_capacity" {
-  type    = number
-  default = 1
+provider "random" {
+  version = "2.2"
 }
