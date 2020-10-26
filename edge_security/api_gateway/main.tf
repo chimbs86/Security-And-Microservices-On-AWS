@@ -21,8 +21,6 @@ resource "aws_api_gateway_integration" "MyDemoIntegration" {
   resource_id          = aws_api_gateway_resource.GetCampaignIdResource.id
   http_method          = aws_api_gateway_method.GetCampaignId.http_method
   type                 = "MOCK"
-  cache_key_parameters = ["method.request.path.param"]
-  cache_namespace      = "foobar"
   timeout_milliseconds = 29000
 
   request_parameters = {
