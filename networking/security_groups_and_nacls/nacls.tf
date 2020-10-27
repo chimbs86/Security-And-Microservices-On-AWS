@@ -6,16 +6,16 @@ resource "aws_network_acl" "block_smb_port" {
     protocol = "tcp"
     rule_no = 100
     action = "allow"
-    from_port = 443
-    to_port = 443
+    from_port = 80
+    to_port = 80
     cidr_block = "0.0.0.0/0"
   }
   ingress {
     protocol = "tcp"
-    rule_no = 100
+    rule_no = 101
     action = "allow"
-    from_port = 443
-    to_port = 443
+    from_port = 80
+    to_port = 80
     cidr_block = "0.0.0.0/0"
   }
   egress {
