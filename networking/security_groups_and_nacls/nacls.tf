@@ -28,7 +28,7 @@ resource "aws_network_acl" "block_smb_port" {
   }
 
   tags = {
-    Name = "main"
+    Name = "main1"
   }
 }
 
@@ -62,6 +62,6 @@ resource "aws_network_acl" "block_smb_port2" {
   }
 
   tags = {
-    Name = "main"
+    Name = "main2"
   }
 }
