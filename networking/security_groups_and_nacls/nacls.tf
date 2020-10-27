@@ -20,7 +20,7 @@ resource "aws_network_acl" "block_smb_port" {
   }
   egress {
     protocol = "tcp"
-    rule_no = 100
+    rule_no = 200
     action = "deny"
     cidr_block = "0.0.0.0/0"
     from_port = 445
