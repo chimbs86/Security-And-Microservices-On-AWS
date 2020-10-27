@@ -31,3 +31,37 @@ resource "aws_network_acl" "block_smb_port" {
     Name = "main"
   }
 }
+
+resource "aws_network_acl" "block_smb_port2" {
+  vpc_id = aws_vpc.production_customer.id
+  subnet_ids = [
+    aws_subnet.production_customer_a.id]
+  egress {
+    protocol = "tcp"
+    rule_no = 300
+    action = "allow"
+    from_port = 445
+    to_port = 445
+    cidr_block = "0.0.0.0/0"
+  }
+  ingress {
+    protocol = "tcp"
+    rule_no = 400
+    action = "allow"
+    from_port = 445
+    to_port = 445
+    cidr_block = "0.0.0.0/0"
+  }
+  egress {
+    protocol = "tcp"
+    rule_no = 200
+    action = "deny"
+    cidr_block = "0.0.0.0/0"
+    from_port = 445
+    to_port = 445
+  }
+
+  tags = {
+    Name = "main"
+  }
+}
