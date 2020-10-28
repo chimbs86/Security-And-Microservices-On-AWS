@@ -32,7 +32,7 @@ resource "aws_api_gateway_integration" "MyDemoIntegration" {
   request_templates = {
     "application/xml" = <<EOF
 {
-   "body" : $input.json('$')
+   "body" : "rocks"
 }
 EOF
   }
