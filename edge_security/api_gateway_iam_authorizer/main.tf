@@ -28,12 +28,5 @@ resource "aws_api_gateway_integration" "MyDemoIntegration" {
     "integration.request.header.X-Authorization" = "'static'"
   }
 
-  # Transforms the incoming XML request to JSON
-  request_templates = {
-    "application/xml" = <<EOF
-{
-   "body" : "rocks"
-}
-EOF
-  }
+
 }
