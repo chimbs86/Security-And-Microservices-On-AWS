@@ -1,6 +1,6 @@
 resource "aws_api_gateway_rest_api" "ECommerceMarketingAPI" {
-  name        = "Campaign management API"
-  description = "Contains all methoeds related to campaign management"
+  name        = "Campaign management API Test"
+  description = "Contains all methods related to campaign management"
 }
 
 resource "aws_api_gateway_resource" "GetCampaignIdResource" {
