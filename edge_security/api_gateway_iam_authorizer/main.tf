@@ -24,9 +24,11 @@ resource "aws_api_gateway_integration" "MyDemoIntegration" {
   type = "MOCK"
   timeout_milliseconds = 29000
   request_templates = {
-    "application/json" = {
-      "statusCode": "200"
-    }
+    "application/json" = <<EOF
+{
+    "statusCode": "200"
+}
+EOF
   }
   passthrough_behavior = "WHEN_NO_MATCH"
 
