@@ -6,7 +6,7 @@ resource "aws_api_gateway_rest_api" "ECommerceMarketingAPI" {
 resource "aws_api_gateway_resource" "GetCampaignIdResource" {
   rest_api_id = aws_api_gateway_rest_api.ECommerceMarketingAPI.id
   parent_id   = aws_api_gateway_rest_api.ECommerceMarketingAPI.root_resource_id
-  path_part   = "getCapmaignId"
+  path_part   = "getCampaignId"
 }
 
 resource "aws_api_gateway_method" "GetCampaignId" {
