@@ -64,7 +64,7 @@ resource "aws_api_gateway_method_settings" "s" {
 
   settings {
     metrics_enabled = true
-    logging_level   = "INFO"
+
   }
 }
 
