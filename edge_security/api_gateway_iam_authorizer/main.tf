@@ -26,5 +26,6 @@ resource "aws_api_gateway_integration" "MyDemoIntegration" {
 request_templates = {
   "application/json" = {"statusCode": 200}
 }
+  passthrough_behavior = "WHEN_NO_MATCH"
 
 }
