@@ -26,7 +26,7 @@ resource "aws_api_gateway_integration" "MyDemoIntegration" {
   request_templates = {
     "application/json" = <<EOF
 {
-    "statusCode": "200"
+    "statusCode": 200
 }
 EOF
   }
