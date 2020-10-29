@@ -24,9 +24,5 @@ resource "aws_api_gateway_integration" "MyDemoIntegration" {
   type                 = "MOCK"
   timeout_milliseconds = 29000
 
-  request_parameters = {
-    "integration.request.header.X-Authorization" = "'static'"
-  }
-
 
 }
