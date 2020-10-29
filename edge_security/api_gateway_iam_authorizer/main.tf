@@ -73,4 +73,12 @@ resource "aws_api_gateway_integration" "test" {
   resource_id = aws_api_gateway_resource.test.id
   http_method = aws_api_gateway_method.test.http_method
   type        = "MOCK"
+
+  request_templates = {
+    "application/json" = jsonencode(
+    {
+      statusCode = 200
+    }
+    )
+  }
 }
