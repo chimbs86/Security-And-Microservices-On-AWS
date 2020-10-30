@@ -7,7 +7,7 @@ resource "aws_default_security_group" "default" {
     from_port = 0
     to_port = 0
     security_groups = [
-      aws_security_group.chained]
+      aws_security_group.chained.id]
   }
 
   egress {
