@@ -1,5 +1,5 @@
 resource "aws_api_gateway_rest_api" "ECommerceMarketingAPI" {
-  name = "Campaign management API Test"
+  name = "Campaign management API Test2"
   description = "Contains all methoeds related to campaign management"
 }
 
