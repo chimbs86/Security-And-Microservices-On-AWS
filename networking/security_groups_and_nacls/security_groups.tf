@@ -1,6 +1,10 @@
 resource "aws_default_security_group" "default" {
   vpc_id = aws_vpc.production_customer.id
 
+  tags = {
+    Name = "chained_security_group"
+  }
+
   ingress {
     protocol = "tcp"
     self = true
