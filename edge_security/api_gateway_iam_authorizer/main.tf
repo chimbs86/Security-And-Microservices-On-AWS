@@ -17,7 +17,7 @@ resource "aws_api_gateway_method" "GetCampaignId" {
 }
 
 
-resource "aws_api_gateway_integration" "MyDemoIntegration" {
+resource "aws_api_gateway_integration" "GetCamoaignIntegration" {
   rest_api_id = aws_api_gateway_rest_api.ECommerceMarketingAPI.id
   resource_id = aws_api_gateway_resource.GetCampaignIdResource.id
   http_method = aws_api_gateway_method.GetCampaignId.http_method
