@@ -37,6 +37,7 @@ resource "aws_api_gateway_method_response" "response_200" {
   resource_id = aws_api_gateway_resource.GetCampaignIdResource.id
   http_method = aws_api_gateway_method.GetCampaignId.http_method
   status_code = "200"
+
 }
 
 resource "aws_api_gateway_integration_response" "MyDemoIntegrationResponse" {
@@ -47,6 +48,7 @@ resource "aws_api_gateway_integration_response" "MyDemoIntegrationResponse" {
 
   depends_on = [aws_api_gateway_method_response.response_200]
 
+  # Transforms the backend JSON response to XML
   response_templates = {
     "application/json" = <<EOF
 {
