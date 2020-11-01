@@ -73,3 +73,11 @@ resource "aws_instance" "web" {
     Name = "microservice"
   }
 }
+
+resource "aws_route53_zone" "private" {
+  name = "example.com"
+
+  vpc {
+    vpc_id = aws_vpc.production.id
+  }
+}
