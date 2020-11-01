@@ -27,7 +27,6 @@ resource "aws_internet_gateway" "gw" {
 
 
 resource "aws_default_route_table" "production_route" {
-  vpc_id = aws_vpc.production.id
   tags = {
     Name = "Production Route Table"
   }
