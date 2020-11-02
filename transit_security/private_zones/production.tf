@@ -88,8 +88,6 @@ EOF
 
 
 resource "aws_instance" "test" {
-  depends_on = [
-    "aws_internet_gateway.test"]
 
 
   ami = data.aws_ami.amazon-linux-2.id
