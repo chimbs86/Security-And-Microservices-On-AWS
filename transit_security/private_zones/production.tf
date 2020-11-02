@@ -26,18 +26,18 @@ resource "aws_internet_gateway" "gw" {
 }
 
 
-//resource "aws_default_route_table" "production_route" {
-//  tags = {
-//    Name = "Production Route Table"
-//  }
-//  route {
-//    cidr_block = "0.0.0.0/0"
-//    gateway_id = aws_internet_gateway.gw.id
-//  }
-//
-//
-//  default_route_table_id = aws_vpc.production.default_route_table_id
-//}
+resource "aws_default_route_table" "production_route" {
+  tags = {
+    Name = "Production Route Table"
+  }
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.gw.id
+  }
+
+
+  default_route_table_id = aws_vpc.production.default_route_table_id
+}
 
 
 
