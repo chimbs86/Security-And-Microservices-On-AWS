@@ -49,7 +49,7 @@ data "aws_ami" "amazon-linux-2" {
     name   = "owner-alias"
     values = ["amazon"]
   }
-  owners = "amazon"
+  owners =[ "amazon"]
 
 
   filter {
