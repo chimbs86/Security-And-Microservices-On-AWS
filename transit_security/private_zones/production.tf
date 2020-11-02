@@ -2,6 +2,8 @@ resource "aws_vpc" "production" {
   cidr_block = "10.0.0.0/16"
   instance_tenancy = "default"
 
+  enable_dns_hostnames = true
+  enable_dns_support = true
   tags = {
     Name = "production"
   }
@@ -33,6 +35,10 @@ resource "aws_default_route_table" "production_route" {
   route {
     cidr_block = "0.0.0.0/0"
     gateway_id = aws_internet_gateway.gw.id
+  }
+  route {
+    cidr_block = aws_subnet.production_customer.cidr_block
+
   }
 
 
