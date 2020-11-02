@@ -119,3 +119,11 @@ resource "aws_route53_zone" "private" {
     vpc_id = aws_vpc.production.id
   }
 }
+
+resource "aws_route53_record" "www" {
+  zone_id = aws_route53_zone.private.id
+  name    = "www.example.com"
+  type    = "A"
+  ttl     = "300"
+  records = ["54.162.115.122"]
+}
