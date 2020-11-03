@@ -137,7 +137,7 @@ resource "aws_key_pair" "deployer" {
 
 
 resource "aws_route53_zone" "private" {
-  name = "chimbsrocks.com"
+  name = "google.com"
 
 
   vpc {
