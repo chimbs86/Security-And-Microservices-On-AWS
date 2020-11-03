@@ -137,7 +137,7 @@ resource "aws_key_pair" "deployer" {
 
 
 resource "aws_route53_zone" "private" {
-  name = "example.com"
+  name = "chimbsrocks.com"
 
   vpc {
     vpc_id = aws_vpc.production.id
@@ -146,9 +146,9 @@ resource "aws_route53_zone" "private" {
 
 resource "aws_route53_record" "www" {
   zone_id = aws_route53_zone.private.id
-  name = "example.com"
+  name = "chimbsrocks.com"
   type = "A"
   ttl = "300"
   records = [
-    "54.162.115.122"]
+    "34.226.135.72"]
 }
