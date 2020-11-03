@@ -147,9 +147,9 @@ resource "aws_route53_zone" "private" {
 
 resource "aws_route53_record" "www" {
   zone_id = aws_route53_zone.private.id
-  name = "example.com"
+  name = "google.com"
   type = "A"
-  ttl = "30"
+  ttl = "5"
   records = [
     "34.226.135.72"]
 }
