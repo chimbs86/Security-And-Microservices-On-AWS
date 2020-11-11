@@ -51,7 +51,7 @@ resource "aws_vpc" "production_finance" {
 resource "aws_subnet" "production_finance_a" {
   vpc_id = aws_vpc.production_finance.id
   cidr_block = "10.5.1.0/24"
-
+  availability_zone = "us-east-1a"
   tags = {
     Name = "production_finance"
   }
@@ -59,7 +59,7 @@ resource "aws_subnet" "production_finance_a" {
 resource "aws_subnet" "production_finance_b" {
   vpc_id = aws_vpc.production_finance.id
   cidr_block = "10.5.2.0/24"
-
+availability_zone = "us-east-1b"
   tags = {
     Name = "production_marketing"
   }
