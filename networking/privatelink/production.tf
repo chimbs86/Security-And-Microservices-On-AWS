@@ -56,6 +56,14 @@ resource "aws_subnet" "production_finance_a" {
     Name = "production_finance"
   }
 }
+resource "aws_subnet" "production_finance_b" {
+  vpc_id = aws_vpc.production_finance.id
+  cidr_block = "10.5.2.0/24"
+
+  tags = {
+    Name = "production_marketing"
+  }
+}
 
 
 resource "aws_lb" "customer_account_total" {
