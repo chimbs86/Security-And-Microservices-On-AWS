@@ -27,12 +27,6 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   comment             = "Some comment"
   default_root_object = "index.html"
 
-  logging_config {
-    include_cookies = false
-    bucket          = "mylogs.s3.amazonaws.com"
-    prefix          = "myprefix"
-  }
-
   aliases = ["mysite.example.com", "yoursite.example.com"]
 
   default_cache_behavior {
