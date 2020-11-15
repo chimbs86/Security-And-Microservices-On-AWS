@@ -1,9 +1,9 @@
 resource "aws_s3_bucket" "b" {
-  bucket = "mybucket"
+  bucket = "testoriginchimbs"
   acl    = "private"
 
   tags = {
-    Name = "My bucket"
+    Name = "testoriginchimbs"
   }
 }
 
