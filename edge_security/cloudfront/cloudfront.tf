@@ -15,6 +15,19 @@ resource "aws_cloudfront_origin_access_identity" "origin_access_identity" {
   comment = "Some comment"
 }
 
+resource "aws_acm_certificate" "example" {
+  domain_name       = "fallacyis.com"
+  validation_method = "EMAIL"
+
+  tags = {
+    Environment = "test"
+  }
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
 resource "aws_cloudfront_distribution" "s3_distribution" {
   origin {
     domain_name = aws_s3_bucket.b.bucket_regional_domain_name
@@ -27,7 +40,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   comment             = "Some comment"
   default_root_object = "index.html"
 
-//  aliases = ["fallacyis.com"]
+  aliases = ["fallacyis.com"]
 
   default_cache_behavior {
     allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
@@ -107,6 +120,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   }
 
   viewer_certificate {
-    cloudfront_default_certificate = true
+    acm_certificate_arn = aws_acm_certificate.example.arn
+    ssl_support_method = "sni-only"
   }
 }
