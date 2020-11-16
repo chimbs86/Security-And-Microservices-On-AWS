@@ -28,7 +28,9 @@ resource "aws_acm_certificate" "example" {
   }
 }
 
+
 resource "aws_cloudfront_distribution" "s3_distribution" {
+  depends_on = [aws_acm_certificate.example]
   origin {
     domain_name = aws_s3_bucket.b.bucket_regional_domain_name
     origin_id   = local.s3_origin_id
@@ -121,6 +123,6 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
 
   viewer_certificate {
     acm_certificate_arn = aws_acm_certificate.example.arn
-    ssl_support_method = "sni-only"
+    ssl_support_method = "sni-only  "
   }
 }
