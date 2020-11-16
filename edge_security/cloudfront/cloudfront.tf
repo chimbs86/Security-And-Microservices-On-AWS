@@ -15,23 +15,15 @@ resource "aws_cloudfront_origin_access_identity" "origin_access_identity" {
   comment = "Some comment"
 }
 
-resource "aws_acm_certificate" "example" {
-  domain_name       = "fallacyis.com"
-  validation_method = "DNS"
-
-
-  tags = {
-    Environment = "test"
-  }
-
-  lifecycle {
-    create_before_destroy = true
-  }
+module "acm_request_certificate"  {
+  source                            = "git::https://github.com/cloudposse/terraform-aws-acm-request-certificate.git?ref=master"
+  domain_name                       = "fallacyis.com"
+  process_domain_validation_options = true
+  ttl                               = "300"
 }
 
-
 resource "aws_cloudfront_distribution" "s3_distribution" {
-  depends_on = [aws_acm_certificate.example]
+
   origin {
     domain_name = aws_s3_bucket.b.bucket_regional_domain_name
     origin_id   = local.s3_origin_id
@@ -123,41 +115,12 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   }
 
   viewer_certificate {
-    acm_certificate_arn = aws_acm_certificate.example.arn
+    acm_certificate_arn = module.acm_request_certificate.arn
     ssl_support_method = "sni-only"
   }
 }
 
 
-
-data "aws_route53_zone" "public" {
-  name         = "fallacyis.com"
-  private_zone = false
-}
-
-
-
-# This is a DNS record for the ACM certificate validation to prove we own the domain
-#
-# This example, we make an assumption that the certificate is for a single domain name so can just use the first value of the
-# domain_validation_options.  It allows the terraform to apply without having to be targeted.
-# This is somewhat less complex than the example at https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/acm_certificate_validation
-# - that above example, won't apply without targeting
-
-resource "aws_route53_record" "cert_validation" {
-  allow_overwrite = true
-  name            = tolist(aws_acm_certificate.example.domain_validation_options)[0].resource_record_name
-  records         = [ tolist(aws_acm_certificate.example.domain_validation_options)[0].resource_record_value ]
-  type            = "CNAME"
-  zone_id  = data.aws_route53_zone.public.id
-  ttl      = 60
-}
-
-# This tells terraform to cause the route53 validation to happen
-resource "aws_acm_certificate_validation" "cert" {
-  certificate_arn         = aws_acm_certificate.example.arn
-  validation_record_fqdns = [ aws_route53_record.cert_validation.fqdn ]
-}
 
 
 
