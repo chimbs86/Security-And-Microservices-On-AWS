@@ -22,7 +22,7 @@ output "marketing_subnet_id" {
 }
 
 resource "aws_route_table" "marketing_route_table" {
-  vpc_id = aws_vpc.customer.id
+  vpc_id = aws_vpc.marketing.id
 }
 
 output "marketing_route_table_id" {
