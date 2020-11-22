@@ -10,6 +10,9 @@ resource "aws_instance" "test" {
   vpc_security_group_ids = [
     aws_security_group.allow_all.id]
   subnet_id = var.subnet_id
+  tags = {
+    Name =" ${random_id}"
+  }
 
 }
 

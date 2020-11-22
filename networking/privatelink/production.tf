@@ -11,7 +11,7 @@ module "vpc_structure" {
 
 
 resource "aws_lb" "finance_service_loadbalancer" {
-  name = "balance-service-loadbalancer"
+  name = "finance-service-loadbalancer"
   #can also be obtained from the variable nlb_config
   load_balancer_type = "network"
   internal = true
