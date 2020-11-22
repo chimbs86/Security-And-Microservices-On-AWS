@@ -9,22 +9,6 @@ module "vpc_structure" {
   ec2_inside_each = 0
 }
 
-
-
-resource "aws_lb" "finance_service_loadbalancer" {
-  name = "finance-service-loadbalancer"
-  #can also be obtained from the variable nlb_config
-  load_balancer_type = "network"
-  internal = false
-
-  subnet_mapping {
-    subnet_id = module.vpc_structure.finance_subnet_id
-  }
-  tags = {
-    Environment = "prod"
-  }
-}
-
 resource "aws_vpc_endpoint_service" "finance_endpoint_privatelink" {
   acceptance_required = false
   network_load_balancer_arns = [
