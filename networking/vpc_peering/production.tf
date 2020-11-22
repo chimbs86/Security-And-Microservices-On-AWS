@@ -1,27 +1,21 @@
+module "vpc_structure"{
+  source = "../../lib/vpc_structure"
 
-resource "aws_vpc" "production" {
-  cidr_block       = "10.1.0.0/16"
-  instance_tenancy = "default"
 
-  tags = {
-    Name = "production"
-  }
+
+
+  customer_subnet_cidr = local.customer.customer_subnet_cidr
+  customer_vpc_cidr = local.customer.customer_vpc_cidr
+  finance_subnet_cidr = local.finance.finance_subnet_cidr
+  finance_vpc_cidr = local.finance.finance_vpc_cidr
+  marketing_subnet_cidr = local.marketing.marketing_subnet_cidr
+  marketing_vpc_cidr = local.marketing.marketing_vpc_cidr
 }
 
 
-
-resource "aws_subnet" "production_customer" {
-  vpc_id     = aws_vpc.production.id
-  cidr_block = "10.1.1.0/24"
-
-  tags = {
-    Name = "production"
-  }
-}
-
-resource "aws_vpc_peering_connection" "dev_prod_peering_connection" {
-  peer_vpc_id   = aws_vpc.production.id
-  vpc_id        = aws_vpc.development.id
+resource "aws_vpc_peering_connection" "customer_finance_peering_connection" {
+  peer_vpc_id   = module.vpc_structure.customer_vpc_id
+  vpc_id        = module.vpc_structure.finance_vpc_id
   auto_accept   = true
 
   tags = {
@@ -29,34 +23,34 @@ resource "aws_vpc_peering_connection" "dev_prod_peering_connection" {
   }
 }
 
-resource "aws_vpc_peering_connection" "shared_prod_peering_connection" {
-  peer_vpc_id   = aws_vpc.production.id
-  vpc_id        = aws_vpc.shared.id
+resource "aws_vpc_peering_connection" "marketing_finance_peering_connection" {
+  peer_vpc_id   = module.vpc_structure.marketing_vpc_id
+  vpc_id        = module.vpc_structure.finance_vpc_id
   auto_accept   = true
 
   tags = {
     Name = "VPC Peering between production and development"
   }
 }
-
-resource "aws_route_table" "production_route" {
-  vpc_id = aws_vpc.production.id
-  tags = {
-    Name = "Production Route Table"
-  }
-  route {
-    cidr_block = "10.2.0.0/16"
-    vpc_peering_connection_id = aws_vpc_peering_connection.dev_prod_peering_connection.id
-  }
-  route {
-    cidr_block = "10.3.0.0/16"
-    vpc_peering_connection_id = aws_vpc_peering_connection.shared_prod_peering_connection.id
-  }
-
-
-
-}
-resource "aws_main_route_table_association" "main_table_prod"{
-route_table_id = aws_route_table.production_route.id
-  vpc_id = aws_vpc.production.id
-}
+//
+//resource "aws_route_table" "production_route" {
+//  vpc_id = module.vpc_structure.finance_vpc_id
+//  tags = {
+//    Name = "Production Route Table"
+//  }
+//  route {
+//    cidr_block =
+//    vpc_peering_connection_id = aws_vpc_peering_connection.dev_prod_peering_connection.id
+//  }
+//  route {
+//    cidr_block = "10.3.0.0/16"
+//    vpc_peering_connection_id = aws_vpc_peering_connection.shared_prod_peering_connection.id
+//  }
+//
+//
+//
+//}
+//resource "aws_main_route_table_association" "main_table_prod"{
+//route_table_id = aws_route_table.production_route.id
+//  vpc_id = aws_vpc.production.id
+//}
