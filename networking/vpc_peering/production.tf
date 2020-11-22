@@ -87,7 +87,7 @@ resource "aws_route_table" "marketing_route" {
 
 
 }
-resource "aws_main_route_table_association" "main_table_prod" {
+resource "aws_main_route_table_association" "marketing_table" {
   route_table_id = aws_route_table.marketing_route.id
   vpc_id = module.vpc_structure.marketing_vpc_id
 }
