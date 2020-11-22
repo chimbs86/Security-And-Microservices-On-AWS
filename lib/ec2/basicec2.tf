@@ -79,6 +79,7 @@ resource "aws_security_group_rule" "allow_pings" {
   to_port = 0
   type = "ingress"
   cidr_blocks = ["0.0.0.0/0"]
+  description = var.subnet_id
 }
 
 resource "aws_security_group_rule" "allow_incoming" {
@@ -88,6 +89,7 @@ resource "aws_security_group_rule" "allow_incoming" {
   to_port = 65535
   type = "ingress"
   cidr_blocks = ["0.0.0.0/0"]
+  description = var.vpc_id
 }
 
 resource "aws_key_pair" "deployer" {
