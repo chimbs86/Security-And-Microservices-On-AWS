@@ -64,12 +64,19 @@ resource "aws_security_group" "allow_all" {
   vpc_id = var.vpc_id
 
   ingress {
-    description = "TLS from VPC"
+    description = "Allow all tcp"
     from_port = 0
     to_port = 65535
     protocol = "tcp"
     cidr_blocks = [
       "0.0.0.0/0"]
+  }
+
+  ingress {
+    description = "Allow pings"
+    from_port = 0
+    protocol = "icmp"
+    to_port = 65535
   }
 
   egress {
@@ -81,7 +88,7 @@ resource "aws_security_group" "allow_all" {
   }
 
   tags = {
-    Name = "allow_tls"
+    Name = "allow_all"
   }
 }
 
