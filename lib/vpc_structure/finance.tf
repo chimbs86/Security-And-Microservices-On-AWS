@@ -20,5 +20,5 @@ output "finance_vpc_id" {
 }
 
 output "finance_subnet_id" {
-  value = aws_subnet.customer_subnet.id
+  value = aws_subnet.finance.id
 }
