@@ -74,6 +74,7 @@ resource "aws_security_group_rule" "allow_outgoing" {
   security_group_id = aws_security_group.allow_all.id
   to_port = 0
   type = "egress"
+  cidr_blocks = ["0.0.0.0/0"]
 }
 resource "aws_security_group_rule" "allow_pings" {
   from_port = 0
@@ -81,6 +82,7 @@ resource "aws_security_group_rule" "allow_pings" {
   security_group_id = aws_security_group.allow_all.id
   to_port = 0
   type = "ingress"
+  cidr_blocks = ["0.0.0.0/0"]
 }
 
 resource "aws_security_group_rule" "allow_incoming" {
@@ -89,6 +91,7 @@ resource "aws_security_group_rule" "allow_incoming" {
   security_group_id = aws_security_group.allow_all.id
   to_port = 65535
   type = "ingress"
+  cidr_blocks = ["0.0.0.0/0"]
 }
 
 resource "aws_key_pair" "deployer" {
