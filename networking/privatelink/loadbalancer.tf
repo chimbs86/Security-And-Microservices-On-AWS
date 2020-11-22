@@ -13,7 +13,7 @@ resource "aws_lb" "finance_service_loadbalancer" {
   }
 }
 resource "aws_lb_target_group" "ip-example" {
-  name        = "finance_service_nlb"
+  name        = "financenlb"
   port        = 80
   protocol    = "TCP"
   target_type = "ip"
