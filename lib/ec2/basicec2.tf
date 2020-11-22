@@ -74,7 +74,7 @@ resource "aws_security_group_rule" "allow_outgoing" {
 }
 resource "aws_security_group_rule" "allow_pings" {
   from_port = 0
-  protocol = "icmp"
+  protocol = "all"
   security_group_id = aws_security_group.allow_all.id
   to_port = 0
   type = "ingress"
