@@ -1,4 +1,4 @@
-module "vpc_structure"{
+module "vpc_structure" {
   source = "../../lib/vpc_structure"
 
 
@@ -14,9 +14,9 @@ module "vpc_structure"{
 
 
 resource "aws_vpc_peering_connection" "customer_finance_peering_connection" {
-  peer_vpc_id   = module.vpc_structure.customer_vpc_id
-  vpc_id        = module.vpc_structure.finance_vpc_id
-  auto_accept   = true
+  peer_vpc_id = module.vpc_structure.customer_vpc_id
+  vpc_id = module.vpc_structure.finance_vpc_id
+  auto_accept = true
 
   tags = {
     Name = "VPC Peering between production and development"
@@ -24,9 +24,9 @@ resource "aws_vpc_peering_connection" "customer_finance_peering_connection" {
 }
 
 resource "aws_vpc_peering_connection" "marketing_finance_peering_connection" {
-  peer_vpc_id   = module.vpc_structure.marketing_vpc_id
-  vpc_id        = module.vpc_structure.finance_vpc_id
-  auto_accept   = true
+  peer_vpc_id = module.vpc_structure.marketing_vpc_id
+  vpc_id = module.vpc_structure.finance_vpc_id
+  auto_accept = true
 
   tags = {
     Name = "VPC Peering between production and development"
@@ -48,9 +48,8 @@ resource "aws_route_table" "finance_route" {
   }
 
 
-
 }
-resource "aws_route_table_association" "finance_table_association"{
-route_table_id = aws_route_table.finance_route.id
+resource "aws_main_route_table_association" "main_table_prod" {
+  route_table_id = aws_route_table.finance_route.id
   vpc_id = module.vpc_structure.finance_vpc_id
 }
