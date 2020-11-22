@@ -1,98 +1,42 @@
-resource "aws_vpc" "production_customer" {
-  cidr_block = "10.1.0.0/16"
-  instance_tenancy = "default"
-
-  tags = {
-    Name = "production_customer"
-  }
+module "vpc_structure" {
+  source = "../../lib/vpc_structure"
+  customer_subnet_cidr = local.customer.customer_subnet_cidr
+  customer_vpc_cidr = local.customer.customer_vpc_cidr
+  finance_subnet_cidr = local.finance.finance_subnet_cidr
+  finance_vpc_cidr = local.finance.finance_vpc_cidr
+  marketing_subnet_cidr = local.marketing.marketing_subnet_cidr
+  marketing_vpc_cidr = local.marketing.marketing_vpc_cidr
 }
 
 
-resource "aws_subnet" "production_customer_a" {
-  vpc_id = aws_vpc.production_customer.id
-  cidr_block = "10.1.1.0/24"
 
-  tags = {
-    Name = "production_customer"
-  }
-}
-
-
-resource "aws_vpc" "production_marketing" {
-  cidr_block = "10.4.0.0/16"
-  instance_tenancy = "default"
-
-  tags = {
-    Name = "production_marketing"
-  }
-}
-
-
-resource "aws_subnet" "production_marketing_a" {
-  vpc_id = aws_vpc.production_marketing.id
-  cidr_block = "10.4.1.0/24"
-
-  tags = {
-    Name = "production_marketing"
-  }
-}
-
-
-resource "aws_vpc" "production_finance" {
-  cidr_block = "10.5.0.0/16"
-  instance_tenancy = "default"
-
-  tags = {
-    Name = "production_finance"
-  }
-}
-
-
-resource "aws_subnet" "production_finance_a" {
-  vpc_id = aws_vpc.production_finance.id
-  cidr_block = "10.5.1.0/24"
-  availability_zone = "us-east-1a"
-  tags = {
-    Name = "production_finance"
-  }
-}
-resource "aws_subnet" "production_finance_b" {
-  vpc_id = aws_vpc.production_finance.id
-  cidr_block = "10.5.2.0/24"
-availability_zone = "us-east-1b"
-  tags = {
-    Name = "production_marketing"
-  }
-}
-
-
-resource "aws_lb" "customer_account_total" {
+resource "aws_lb" "finance_service_loadbalancer" {
   name = "balance-service-loadbalancer"
   #can also be obtained from the variable nlb_config
   load_balancer_type = "network"
   internal = true
   subnet_mapping {
-    subnet_id = aws_subnet.production_finance_a.id
+    subnet_id = module.vpc_structure.finance_subnet_id
   }
   tags = {
     Environment = "prod"
   }
 }
 
-resource "aws_vpc_endpoint_service" "balance_service_endpoint_service" {
+resource "aws_vpc_endpoint_service" "finance_endpoint_privatelink" {
   acceptance_required = false
   network_load_balancer_arns = [
-    aws_lb.customer_account_total.arn]
+    aws_lb.finance_service_loadbalancer.arn]
 }
 
 resource "aws_vpc_endpoint_subnet_association" "sn_ec2" {
   vpc_endpoint_id = aws_vpc_endpoint.balance_service_endpoint.id
-  subnet_id = aws_subnet.production_finance_a.id
+  subnet_id = module.vpc_structure.customer_subnet_id
 }
 
 resource "aws_vpc_endpoint" "balance_service_endpoint" {
-  vpc_id = aws_vpc.production_finance.id
-  service_name = aws_vpc_endpoint_service.balance_service_endpoint_service.service_name
+  vpc_id = module.vpc_structure.customer_vpc_id
+  service_name = aws_vpc_endpoint_service.finance_endpoint_privatelink.service_name
   vpc_endpoint_type = "Interface"
 
   security_group_ids = [
@@ -102,7 +46,7 @@ resource "aws_vpc_endpoint" "balance_service_endpoint" {
 
 
 resource "aws_default_security_group" "default" {
-  vpc_id = aws_vpc.production_finance.id
+  vpc_id = module.vpc_structure.customer_vpc_id
 
   ingress {
     protocol = -1

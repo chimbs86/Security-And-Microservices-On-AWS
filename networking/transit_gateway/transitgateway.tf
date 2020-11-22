@@ -1,13 +1,9 @@
 resource "aws_ec2_transit_gateway" "example_gateway" {
-  description = "example"
+  description = "Centralized Transit Gateway"
 }
 
 module "vpc_structure" {
   source = "../../lib/vpc_structure"
-
-
-
-
   customer_subnet_cidr = local.customer.customer_subnet_cidr
   customer_vpc_cidr = local.customer.customer_vpc_cidr
   finance_subnet_cidr = local.finance.finance_subnet_cidr
