@@ -38,4 +38,5 @@ module "ec2_finance" {
   subnet_id = aws_subnet.finance.id
   vpc_id = aws_vpc.finance.id
   route_table_id = aws_route_table.finance_route_table.id
+  vpc_name = aws_vpc.finance.tags.Name
 }

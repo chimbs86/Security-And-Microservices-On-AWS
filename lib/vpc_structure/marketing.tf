@@ -35,4 +35,5 @@ module "ec2_marketing_test" {
   subnet_id = aws_subnet.marketing_subnet1.id
   vpc_id = aws_vpc.marketing.id
   route_table_id = aws_route_table.marketing_route_table.id
+  vpc_name = aws_vpc.marketing.tags.Name
 }

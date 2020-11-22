@@ -34,4 +34,5 @@ module "ec2_customer_test" {
   subnet_id = aws_subnet.customer_subnet.id
   vpc_id = aws_vpc.customer.id
   route_table_id = aws_route_table.customer_route_table.id
+  vpc_name = aws_vpc.customer.tags.Name
 }
