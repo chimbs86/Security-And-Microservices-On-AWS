@@ -63,33 +63,32 @@ resource "aws_security_group" "allow_all" {
   description = "Allow TLS inbound traffic"
   vpc_id = var.vpc_id
 
-  ingress {
-    description = "Allow all tcp"
-    from_port = 0
-    to_port = 65535
-    protocol = "tcp"
-    cidr_blocks = [
-      "0.0.0.0/0"]
-  }
-
-  ingress {
-    description = "Allow pings"
-    from_port = 0
-    protocol = "icmp"
-    to_port = 65535
-  }
-
-  egress {
-    from_port = 0
-    to_port = 0
-    protocol = "-1"
-    cidr_blocks = [
-      "0.0.0.0/0"]
-  }
-
   tags = {
     Name = "allow_all"
   }
+}
+
+resource "aws_security_group_rule" "allow_outgoing" {
+  from_port = 0
+  protocol = "tcp"
+  security_group_id = aws_security_group.allow_all.id
+  to_port = 0
+  type = "egress"
+}
+resource "aws_security_group_rule" "allow_pings" {
+  from_port = 0
+  protocol = "icmp"
+  security_group_id = aws_security_group.allow_all.id
+  to_port = 0
+  type = "ingress"
+}
+
+resource "aws_security_group_rule" "allow_incoming" {
+  from_port = 0
+  protocol = "tcp"
+  security_group_id = aws_security_group.allow_all.id
+  to_port = 65535
+  type = "ingress"
 }
 
 resource "aws_key_pair" "deployer" {
