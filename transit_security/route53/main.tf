@@ -13,7 +13,7 @@ variable "aws_region" {
   default = "us-east-1"
 }
 
-module "vpc" {
+module "vpc_marketing" {
   source = "./vpc"
   name   = "marketing"
   cidr_subnet = "10.0.0.0/24"
@@ -21,7 +21,7 @@ module "vpc" {
   subnet_name = "marketing"
 }
 
-module "vpc" {
+module "vpc_finance" {
   source = "./vpc"
   name   = "finance"
   cidr_subnet = "10.0.0.0/24"
