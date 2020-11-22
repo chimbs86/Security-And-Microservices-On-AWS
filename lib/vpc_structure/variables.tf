@@ -38,3 +38,7 @@ variable "customer_subnet_name" {
 variable "marketing_subnet_name" {
   default = "marketing_subnet"
 }
+
+variable "ec2_inside_each" {
+  default = 1
+}

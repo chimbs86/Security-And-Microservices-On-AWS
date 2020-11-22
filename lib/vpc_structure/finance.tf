@@ -22,3 +22,10 @@ output "finance_vpc_id" {
 output "finance_subnet_id" {
   value = aws_subnet.finance.id
 }
+
+module "ec2_finance" {
+  count = var.ec2_inside_each
+  source = "../ec2"
+  subnet_id = aws_subnet.finance.id
+  vpc_id = aws_vpc.finance.id
+}
