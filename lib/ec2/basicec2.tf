@@ -108,6 +108,7 @@ resource "aws_route_table" "production_route_table" {
 }
 resource "aws_route" "internet_route" {
   gateway_id = aws_internet_gateway.gw.id
+  destination_cidr_block = "0.0.0.0/0"
   route_table_id = aws_route_table.production_route_table
 }
 resource "aws_main_route_table_association" "main_table_prod" {
