@@ -103,18 +103,13 @@ resource "aws_internet_gateway" "gw" {
   vpc_id = var.vpc_id
 }
 
-resource "aws_route_table" "production_route_table" {
-  vpc_id = var.vpc_id
-}
+
 resource "aws_route" "internet_route" {
   gateway_id = aws_internet_gateway.gw.id
   destination_cidr_block = "0.0.0.0/0"
-  route_table_id = aws_route_table.production_route_table
+  route_table_id = var.route_table_id
 }
 resource "aws_main_route_table_association" "main_table_prod" {
-  route_table_id = aws_route_table.production_route_table.id
+  route_table_id = var.route_table_id
   vpc_id = var.vpc_id
-}
-output "route_table_id" {
-  value = aws_route_table.production_route_table.id
 }

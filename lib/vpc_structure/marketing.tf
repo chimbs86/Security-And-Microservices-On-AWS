@@ -20,8 +20,13 @@ output "marketing_vpc_id" {
 output "marketing_subnet_id" {
   value = aws_subnet.marketing_subnet1.id
 }
+
+resource "aws_route_table" "marketing_route_table" {
+  vpc_id = aws_vpc.customer.id
+}
+
 output "marketing_route_table_id" {
-  value = module.ec2_marketing_test.route_table_id
+  value = aws_route_table.marketing_route_table.id
 }
 
 module "ec2_marketing_test" {
@@ -29,4 +34,5 @@ module "ec2_marketing_test" {
   source = "../ec2"
   subnet_id = aws_subnet.marketing_subnet1.id
   vpc_id = aws_vpc.marketing.id
+  route_table_id = aws_route_table.marketing_route_table.id
 }

@@ -20,9 +20,12 @@ output "customer_vpc_id" {
 output "customer_subnet_id" {
   value = aws_subnet.customer_subnet.id
 }
+resource "aws_route_table" "customer_route_table" {
+  vpc_id = aws_vpc.customer.id
+}
+
 output "customer_route_table_id" {
-  depends_on = [module.ec2_customer_test]
-  value = module.ec2_customer_test.route_table_id
+  value = aws_route_table.customer_route_table.id
 }
 
 module "ec2_customer_test" {
@@ -30,4 +33,5 @@ module "ec2_customer_test" {
   source = "../ec2"
   subnet_id = aws_subnet.customer_subnet.id
   vpc_id = aws_vpc.customer.id
+  route_table_id = aws_route_table.customer_route_table.id
 }
