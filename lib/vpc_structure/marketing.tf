@@ -21,7 +21,7 @@ output "marketing_subnet_id" {
   value = aws_subnet.marketing_subnet1.id
 }
 
-module "ec2_customer_test" {
+module "ec2_marketing_test" {
   count = var.ec2_inside_each
   source = "../ec2"
   subnet_id = aws_subnet.marketing_subnet1.id
