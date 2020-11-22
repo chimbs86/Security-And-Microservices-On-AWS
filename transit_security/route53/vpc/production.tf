@@ -1,4 +1,4 @@
-resource "aws_vpc" "production_marketing" {
+resource "aws_vpc" "vpc" {
   cidr_block = var.cidr_vpc
   instance_tenancy = "default"
 
@@ -8,8 +8,8 @@ resource "aws_vpc" "production_marketing" {
 }
 
 
-resource "aws_subnet" "production_customer_a" {
-  vpc_id = aws_vpc.production_marketing.id
+resource "aws_subnet" "subnet" {
+  vpc_id = aws_vpc.vpc.id
   cidr_block = var.cidr_subnet
   availability_zone = "us-east-1a"
 
@@ -21,6 +21,6 @@ resource "aws_subnet" "production_customer_a" {
 
 module "ec2" {
   source = "../../../lib/ec2"
-  subnet_id = aws_subnet.production_customer_a.id
-  vpc_id = aws_vpc.production_marketing.id
+  subnet_id = aws_subnet.subnet.id
+  vpc_id = aws_vpc.vpc.id
 }

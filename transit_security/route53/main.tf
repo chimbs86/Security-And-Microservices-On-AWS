@@ -15,8 +15,17 @@ variable "aws_region" {
 
 module "vpc" {
   source = "./vpc"
-  name   = "media"
+  name   = "marketing"
   cidr_subnet = "10.0.0.0/24"
   cidr_vpc = "10.0.0.0/16"
-  subnet_name = "customera"
+  subnet_name = "marketing"
 }
+
+module "vpc" {
+  source = "./vpc"
+  name   = "finance"
+  cidr_subnet = "10.0.0.0/24"
+  cidr_vpc = "10.0.0.0/16"
+  subnet_name = "finance"
+}
+
