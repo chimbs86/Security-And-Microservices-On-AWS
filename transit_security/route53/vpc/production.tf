@@ -14,7 +14,7 @@ resource "aws_subnet" "production_customer_a" {
   availability_zone = "us-east-1a"
 
   tags = {
-    Name = name
+    Name = "customer"
   }
 }
 
