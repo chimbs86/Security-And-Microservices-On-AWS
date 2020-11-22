@@ -17,3 +17,6 @@ resource "aws_subnet" "marketing_subnet1" {
 output "marketing_vpc_id" {
   value = aws_vpc.marketing.id
 }
+output "marketing_subnet_id" {
+  value = aws_subnet.marketing_subnet1.id
+}
