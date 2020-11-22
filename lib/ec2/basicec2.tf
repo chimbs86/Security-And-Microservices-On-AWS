@@ -11,7 +11,7 @@ resource "aws_instance" "test" {
     aws_security_group.allow_all.id]
   subnet_id = var.subnet_id
   tags = {
-    Name ="${var.vpc_name} -  ${random_id.id}"
+    Name ="${var.vpc_name} -  ${tostring(random_id.id)}"
   }
 
 }
