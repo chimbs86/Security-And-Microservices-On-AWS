@@ -62,10 +62,6 @@ EOF
 resource "aws_security_group" "allow_all" {
   description = "Allow TLS inbound traffic"
   vpc_id = var.vpc_id
-
-  tags = {
-    Name = "allow_all"
-  }
 }
 
 resource "aws_security_group_rule" "allow_outgoing" {
