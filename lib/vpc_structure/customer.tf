@@ -20,6 +20,9 @@ output "customer_vpc_id" {
 output "customer_subnet_id" {
   value = aws_subnet.customer_subnet.id
 }
+output "customer_route_table_id" {
+  value = module.ec2_customer_test.route_table_id
+}
 
 module "ec2_customer_test" {
   count = var.ec2_inside_each

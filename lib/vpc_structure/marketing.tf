@@ -20,6 +20,9 @@ output "marketing_vpc_id" {
 output "marketing_subnet_id" {
   value = aws_subnet.marketing_subnet1.id
 }
+output "marketing_route_table_id" {
+  value = module.ec2_marketing_test.route_table_id
+}
 
 module "ec2_marketing_test" {
   count = var.ec2_inside_each

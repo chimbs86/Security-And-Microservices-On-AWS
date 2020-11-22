@@ -23,6 +23,11 @@ output "finance_subnet_id" {
   value = aws_subnet.finance.id
 }
 
+output "finance_route_table_id" {
+  value = module.ec2_finance.route_table_id
+}
+
+
 module "ec2_finance" {
   count = var.ec2_inside_each
   source = "../ec2"

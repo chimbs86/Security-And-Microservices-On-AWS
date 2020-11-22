@@ -33,61 +33,20 @@ resource "aws_vpc_peering_connection" "marketing_finance_peering_connection" {
   }
 }
 
-resource "aws_route_table" "finance_route" {
-  vpc_id = module.vpc_structure.finance_vpc_id
-  tags = {
-    Name = "Production Route Table"
-  }
-  route {
-    cidr_block = local.marketing.marketing_vpc_cidr
-    vpc_peering_connection_id = aws_vpc_peering_connection.marketing_finance_peering_connection.id
-  }
-  route {
-    cidr_block = local.customer.customer_vpc_cidr
-    vpc_peering_connection_id = aws_vpc_peering_connection.customer_finance_peering_connection.id
-  }
-
-
+module "peering_routes_finance_marketing" {
+  source = "../../lib/peering_connection_module"
+  acceptor_cidr_block = local.marketing.marketing_vpc_cidr
+  main_cidr_block = local.finance.finance_vpc_cidr
+  peering_connection_id = aws_vpc_peering_connection.marketing_finance_peering_connection.id
+  route_table_acceptor_id = module.vpc_structure.finance_route_table_id
+  route_table_main_id = module.vpc_structure.marketing_route_table_id
 }
-resource "aws_main_route_table_association" "main_table_prod" {
-  route_table_id = aws_route_table.finance_route.id
-  vpc_id = module.vpc_structure.finance_vpc_id
-}
+module "peering_routes_finance_customer" {
 
-
-resource "aws_route_table" "customer_route" {
-  vpc_id = module.vpc_structure.customer_vpc_id
-  tags = {
-    Name = "Customer Route Table"
-  }
-  route {
-    cidr_block = local.finance.finance_vpc_cidr
-    vpc_peering_connection_id = aws_vpc_peering_connection.customer_finance_peering_connection.id
-  }
-
-
-
-}
-resource "aws_main_route_table_association" "main_table_customer" {
-  route_table_id = aws_route_table.customer_route.id
-  vpc_id = module.vpc_structure.customer_vpc_id
-}
-
-
-resource "aws_route_table" "marketing_route" {
-  vpc_id = module.vpc_structure.marketing_vpc_id
-  tags = {
-    Name = "marketing Route Table"
-  }
-  route {
-    cidr_block = local.finance.finance_vpc_cidr
-    vpc_peering_connection_id = aws_vpc_peering_connection.marketing_finance_peering_connection.id
-  }
-
-
-
-}
-resource "aws_main_route_table_association" "marketing_table" {
-  route_table_id = aws_route_table.marketing_route.id
-  vpc_id = module.vpc_structure.marketing_vpc_id
+  source = "../../lib/peering_connection_module"
+  acceptor_cidr_block = local.customer.customer_vpc_cidr
+  main_cidr_block = local.finance.finance_vpc_cidr
+  peering_connection_id = aws_vpc_peering_connection.customer_finance_peering_connection.id
+  route_table_acceptor_id = module.vpc_structure.finance_route_table_id
+  route_table_main_id = module.vpc_structure.customer_route_table_id
 }

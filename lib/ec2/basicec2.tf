@@ -1,4 +1,3 @@
-
 resource "aws_instance" "test" {
 
 
@@ -70,7 +69,8 @@ resource "aws_security_group_rule" "allow_outgoing" {
   security_group_id = aws_security_group.allow_all.id
   to_port = 0
   type = "egress"
-  cidr_blocks = ["0.0.0.0/0"]
+  cidr_blocks = [
+    "0.0.0.0/0"]
 }
 resource "aws_security_group_rule" "allow_pings" {
   from_port = 0
@@ -78,7 +78,8 @@ resource "aws_security_group_rule" "allow_pings" {
   security_group_id = aws_security_group.allow_all.id
   to_port = 0
   type = "ingress"
-  cidr_blocks = ["0.0.0.0/0"]
+  cidr_blocks = [
+    "0.0.0.0/0"]
   description = var.subnet_id
 }
 
@@ -88,7 +89,8 @@ resource "aws_security_group_rule" "allow_incoming" {
   security_group_id = aws_security_group.allow_all.id
   to_port = 65535
   type = "ingress"
-  cidr_blocks = ["0.0.0.0/0"]
+  cidr_blocks = [
+    "0.0.0.0/0"]
   description = var.vpc_id
 }
 
@@ -101,17 +103,18 @@ resource "aws_internet_gateway" "gw" {
   vpc_id = var.vpc_id
 }
 
-resource "aws_route_table" "production_route" {
+resource "aws_route_table" "production_route_table" {
   vpc_id = var.vpc_id
-  route {
-    cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.gw.id
-  }
-
-
-
 }
-resource "aws_main_route_table_association" "main_table_prod"{
-  route_table_id = aws_route_table.production_route.id
+resource "aws_route" "internet_route" {
+  cidr_block = "0.0.0.0/0"
+  gateway_id = aws_internet_gateway.gw.id
+  route_table_id = aws_route_table.production_route_table
+}
+resource "aws_main_route_table_association" "main_table_prod" {
+  route_table_id = aws_route_table.production_route_table.id
   vpc_id = var.vpc_id
+}
+output "route_table_id" {
+  value = aws_route_table.production_route_table.id
 }
