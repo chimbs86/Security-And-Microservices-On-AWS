@@ -11,6 +11,7 @@ resource "aws_vpc" "production_customer" {
 resource "aws_subnet" "production_customer_a" {
   vpc_id = aws_vpc.production_customer.id
   cidr_block = "10.1.1.0/24"
+  availability_zone = "us-east-1a"
 
   tags = {
     Name = "production_customer"
@@ -21,7 +22,7 @@ resource "aws_subnet" "production_customer_a" {
 resource "aws_subnet" "production_customer_b" {
   vpc_id = aws_vpc.production_customer.id
   cidr_block = "10.1.2.0/24"
-
+  availability_zone = "us-east-1b"
   tags = {
     Name = "production_customer"
   }
