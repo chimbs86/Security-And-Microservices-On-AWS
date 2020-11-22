@@ -21,6 +21,7 @@ output "customer_subnet_id" {
   value = aws_subnet.customer_subnet.id
 }
 output "customer_route_table_id" {
+  depends_on = [module.ec2_customer_test]
   value = module.ec2_customer_test.route_table_id
 }
 
