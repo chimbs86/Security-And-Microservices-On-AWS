@@ -6,6 +6,7 @@ module "vpc_structure" {
   finance_vpc_cidr = local.finance.finance_vpc_cidr
   marketing_subnet_cidr = local.marketing.marketing_subnet_cidr
   marketing_vpc_cidr = local.marketing.marketing_vpc_cidr
+  ec2_inside_each = 0
 }
 
 

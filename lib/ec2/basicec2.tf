@@ -16,6 +16,10 @@ resource "aws_instance" "test" {
 
 }
 
+output "ip" {
+  value = aws_instance.test.public_ip
+}
+
 data "aws_ami" "amazon-linux-2" {
   most_recent = true
 
