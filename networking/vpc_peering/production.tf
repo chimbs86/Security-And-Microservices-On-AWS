@@ -32,25 +32,25 @@ resource "aws_vpc_peering_connection" "marketing_finance_peering_connection" {
     Name = "VPC Peering between production and development"
   }
 }
-//
-//resource "aws_route_table" "production_route" {
-//  vpc_id = module.vpc_structure.finance_vpc_id
-//  tags = {
-//    Name = "Production Route Table"
-//  }
-//  route {
-//    cidr_block =
-//    vpc_peering_connection_id = aws_vpc_peering_connection.dev_prod_peering_connection.id
-//  }
-//  route {
-//    cidr_block = "10.3.0.0/16"
-//    vpc_peering_connection_id = aws_vpc_peering_connection.shared_prod_peering_connection.id
-//  }
-//
-//
-//
-//}
-//resource "aws_main_route_table_association" "main_table_prod"{
-//route_table_id = aws_route_table.production_route.id
-//  vpc_id = aws_vpc.production.id
-//}
+
+resource "aws_route_table" "finance_route" {
+  vpc_id = module.vpc_structure.finance_vpc_id
+  tags = {
+    Name = "Production Route Table"
+  }
+  route {
+    cidr_block = local.marketing.marketing_vpc_cidr
+    vpc_peering_connection_id = aws_vpc_peering_connection.marketing_finance_peering_connection.id
+  }
+  route {
+    cidr_block = local.customer.customer_vpc_cidr
+    vpc_peering_connection_id = aws_vpc_peering_connection.customer_finance_peering_connection.id
+  }
+
+
+
+}
+resource "aws_route_table_association" "finance_table_association"{
+route_table_id = aws_route_table.finance_route.id
+  vpc_id = module.vpc_structure.finance_vpc_id
+}
