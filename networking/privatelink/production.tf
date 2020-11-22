@@ -14,7 +14,8 @@ resource "aws_lb" "finance_service_loadbalancer" {
   name = "finance-service-loadbalancer"
   #can also be obtained from the variable nlb_config
   load_balancer_type = "network"
-  internal = true
+  internal = false
+
   subnet_mapping {
     subnet_id = module.vpc_structure.finance_subnet_id
   }
