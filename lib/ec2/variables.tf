@@ -10,7 +10,7 @@ variable "route_table_id" {
 }
 
 variable "vpc_name" {
-  default = var.vpc_id
+  default = ""
 }
 
 resource "random_id" "id" {
