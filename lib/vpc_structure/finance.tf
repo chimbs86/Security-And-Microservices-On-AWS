@@ -25,7 +25,7 @@ output "finance_subnet_id" {
 
 
 resource "aws_route_table" "finance_route_table" {
-  vpc_id = aws_vpc.customer.id
+  vpc_id = aws_vpc.finance.id
 }
 
 output "finance_route_table_id" {
