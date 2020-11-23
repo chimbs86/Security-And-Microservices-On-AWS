@@ -11,7 +11,7 @@ resource "aws_instance" "test" {
     aws_security_group.allow_all.id]
   subnet_id = var.subnet_id
 
-  user_data = "sudo yum -y install httpd && sudo service httpd start"
+  user_data = "${base64encode(local.userdata)}"
 
   tags = {
     Name ="${var.vpc_name} -  ${random_id.id.hex}"

@@ -16,3 +16,9 @@ variable "vpc_name" {
 resource "random_id" "id" {
   byte_length = 8
 }
+locals {
+  userdata= <<EOF
+sudo yum -y install httpd
+sudo service httpd start
+EOF
+}
