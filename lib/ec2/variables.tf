@@ -18,6 +18,7 @@ resource "random_id" "id" {
 }
 locals {
   userdata= <<EOF
+#! /bin/bash
 sudo yum -y install httpd
 sudo service httpd start
 EOF
