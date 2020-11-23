@@ -17,6 +17,14 @@ module "ec2_customer" {
   vpc_name = "customer"
 }
 
+module "ec2_customer2" {
+  source = "../../lib/ec2"
+  route_table_id = module.vpc_structure.customer_route_table_id
+  subnet_id = module.vpc_structure.customer_subnet_id
+  vpc_id = module.vpc_structure.customer_vpc_id
+  vpc_name = "customer"
+}
+
 resource "aws_route53_zone" "private" {
   name = "google.com"
 
