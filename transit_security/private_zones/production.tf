@@ -30,7 +30,7 @@ resource "aws_route53_zone" "private" {
 
 
   vpc {
-    vpc_id = module.vpc_structure.customer_vpc_id
+    vpc_id = module.vpc_structure.marketing_vpc_id
   }
 }
 
