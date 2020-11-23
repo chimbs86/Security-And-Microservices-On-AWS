@@ -19,10 +19,10 @@ module "ec2_customer" {
 
 module "ec2_customer2" {
   source = "../../lib/ec2"
-  route_table_id = module.vpc_structure.customer_route_table_id
-  subnet_id = module.vpc_structure.customer_subnet_id
-  vpc_id = module.vpc_structure.customer_vpc_id
-  vpc_name = "customer"
+  route_table_id = module.vpc_structure.marketing_route_table_id
+  subnet_id = module.vpc_structure.marketing_subnet_id
+  vpc_id = module.vpc_structure.marketing_vpc_id
+  vpc_name = "marketing"
 }
 
 resource "aws_route53_zone" "private" {
