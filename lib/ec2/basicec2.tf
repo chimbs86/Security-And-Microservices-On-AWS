@@ -74,7 +74,7 @@ resource "aws_security_group_rule" "allow_outgoing" {
   from_port = 0
   protocol = "tcp"
   security_group_id = aws_security_group.allow_all.id
-  to_port = 0
+  to_port = 65535
   type = "egress"
   cidr_blocks = [
     "0.0.0.0/0"]
@@ -85,18 +85,18 @@ resource "aws_security_group_rule" "allow_outgoing_ping" {
   protocol = "icmp"
 
   security_group_id = aws_security_group.allow_all.id
-  to_port = 0
+  to_port = 65535
   type = "egress"
   cidr_blocks = [
     "0.0.0.0/0"]
 }
 
 resource "aws_security_group_rule" "allow_pings" {
-  from_port = -1
+  from_port = 0
 
   protocol = "icmp"
   security_group_id = aws_security_group.allow_all.id
-  to_port = -1
+  to_port = 65535
   type = "ingress"
   cidr_blocks = [
     "0.0.0.0/0"]
