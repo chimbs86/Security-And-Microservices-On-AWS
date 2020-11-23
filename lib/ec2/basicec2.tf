@@ -10,6 +10,9 @@ resource "aws_instance" "test" {
   vpc_security_group_ids = [
     aws_security_group.allow_all.id]
   subnet_id = var.subnet_id
+
+  user_data = "${file("userdata.sh")}"
+
   tags = {
     Name ="${var.vpc_name} -  ${random_id.id.hex}"
   }
