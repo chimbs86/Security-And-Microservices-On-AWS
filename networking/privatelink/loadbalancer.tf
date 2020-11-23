@@ -19,7 +19,7 @@ resource "aws_lb_target_group" "ip-example" {
   target_type = "ip"
   vpc_id      = module.vpc_structure.finance_vpc_id
   connection {
-    host = module.ec2_finance.ip
+    host = module.ec2_finance.private_ip
     port = 80
     type = "TCP"
   }

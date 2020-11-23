@@ -23,6 +23,10 @@ output "ip" {
   value = aws_instance.test.public_ip
 }
 
+output "private_ip" {
+  value = aws_instance.test.private_ip
+}
+
 data "aws_ami" "amazon-linux-2" {
   most_recent = true
 
