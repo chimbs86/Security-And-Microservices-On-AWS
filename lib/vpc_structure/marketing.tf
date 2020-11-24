@@ -4,6 +4,8 @@ resource "aws_vpc" "marketing" {
   tags = {
     Name = var.marketing_vpc_name
   }
+  enable_dns_hostnames = true
+  enable_dns_support = true
 }
 
 resource "aws_subnet" "marketing_subnet1" {

@@ -26,7 +26,7 @@ module "ec2_customer2" {
 }
 
 resource "aws_route53_zone" "private" {
-  name = "amru.com"
+  name = "google.com"
 
 
   vpc {

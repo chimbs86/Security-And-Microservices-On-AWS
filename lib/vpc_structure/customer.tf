@@ -4,6 +4,8 @@ resource "aws_vpc" "customer" {
   tags = {
     Name = var.customer_vpc_name
   }
+  enable_dns_hostnames = true
+  enable_dns_support = true
 }
 
 resource "aws_subnet" "customer_subnet" {
