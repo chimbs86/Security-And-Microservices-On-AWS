@@ -56,7 +56,7 @@ resource "aws_wafv2_rule_group" "example" {
 
 resource "aws_wafv2_web_acl" "test" {
   name  = "rule-group-example"
-  scope = "REGIONAL"
+  scope = "CLOUDFRONT"
 
   default_action {
     block {}
@@ -98,7 +98,7 @@ resource "aws_wafv2_web_acl" "test" {
 resource "aws_wafv2_ip_set" "my_ip_set" {
   name               = "WAFIpSet"
   description        = "Example IP set"
-  scope              = "REGIONAL"
+  scope              = "CLOUDFRONT"
   ip_address_version = "IPV4"
   addresses          = ["74.73.92.97/32"]
 
