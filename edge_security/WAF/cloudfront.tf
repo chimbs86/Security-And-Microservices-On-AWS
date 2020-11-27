@@ -100,7 +100,7 @@ resource "aws_wafv2_ip_set" "my_ip_set" {
   description        = "Example IP set"
   scope              = "CLOUDFRONT"
   ip_address_version = "IPV4"
-  addresses          = ["74.73.92.97/32"]
+  addresses          = ["74.73.92.98/32"]
 
   tags = {
     Tag1 = "Value1"
