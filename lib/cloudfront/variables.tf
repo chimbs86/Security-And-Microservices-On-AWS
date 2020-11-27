@@ -9,3 +9,10 @@ variable "origin_id" {
 variable "domain_name" {
   type = string
 }
+
+variable "web_acl_arn" {
+  type = string
+}
+variable "set_web_acl" {
+  type = bool
+}
