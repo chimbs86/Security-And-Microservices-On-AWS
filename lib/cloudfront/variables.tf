@@ -12,7 +12,5 @@ variable "domain_name" {
 
 variable "web_acl_arn" {
   type = string
-}
-variable "set_web_acl" {
-  type = bool
+  default = null
 }
