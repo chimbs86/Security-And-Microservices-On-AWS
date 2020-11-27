@@ -16,49 +16,94 @@ module "cloudfront_distribution" {
   domain_name = "fallacyis.com"
   origin_bucket_name = aws_s3_bucket.b.bucket_regional_domain_name
   origin_id = local.s3_origin_id
-  web_acl_arn = aws_waf_web_acl.waf_acl.arn
+  web_acl_arn = aws_wafv2_web_acl.test.arn
 }
 
-resource "aws_waf_ipset" "ipset" {
-  name = "IPSet"
 
-  ip_set_descriptors {
-    type  = "IPV4"
-    value = "74.73.92.97/32"
-  }
-}
 
-resource "aws_waf_rule" "wafrule" {
-  depends_on  = [aws_waf_ipset.ipset]
-  name        = "WAFRule"
-  metric_name = "WAFRuleMetric"
+resource "aws_wafv2_rule_group" "example" {
+  capacity = 10
+  name     = "example-rule-group"
+  scope    = "REGIONAL"
 
-  predicates {
-    data_id = aws_waf_ipset.ipset.id
-    negated = false
-    type    = "IPMatch"
-  }
-}
+  rule {
+    name     = "rule-1"
+    priority = 1
 
-resource "aws_waf_web_acl" "waf_acl" {
-  depends_on = [
-    aws_waf_ipset.ipset,
-    aws_waf_rule.wafrule,
-  ]
-  name        = "tfWebACL"
-  metric_name = "tfWebACL"
-
-  default_action {
-    type = "ALLOW"
-  }
-
-  rules {
     action {
-      type = "BLOCK"
+      count {}
     }
 
+    statement {
+     ip_set_reference_statement {
+       arn = aws_wafv2_ip_set.my_ip_set.arn
+     }
+    }
+
+    visibility_config {
+      cloudwatch_metrics_enabled = false
+      metric_name                = "friendly-rule-metric-name"
+      sampled_requests_enabled   = false
+    }
+  }
+
+  visibility_config {
+    cloudwatch_metrics_enabled = false
+    metric_name                = "friendly-metric-name"
+    sampled_requests_enabled   = false
+  }
+}
+
+resource "aws_wafv2_web_acl" "test" {
+  name  = "rule-group-example"
+  scope = "REGIONAL"
+
+  default_action {
+    block {}
+  }
+
+  rule {
+    name     = "rule-1"
     priority = 1
-    rule_id  = aws_waf_rule.wafrule.id
-    type     = "REGULAR"
+
+    override_action {
+      count {}
+    }
+
+    statement {
+      rule_group_reference_statement {
+        arn = aws_wafv2_rule_group.example.arn
+      }
+    }
+
+    visibility_config {
+      cloudwatch_metrics_enabled = false
+      metric_name                = "friendly-rule-metric-name"
+      sampled_requests_enabled   = false
+    }
+  }
+
+  tags = {
+    Tag1 = "Value1"
+    Tag2 = "Value2"
+  }
+
+  visibility_config {
+    cloudwatch_metrics_enabled = false
+    metric_name                = "friendly-metric-name"
+    sampled_requests_enabled   = false
+  }
+}
+
+resource "aws_wafv2_ip_set" "my_ip_set" {
+  name               = "WAFIpSet"
+  description        = "Example IP set"
+  scope              = "REGIONAL"
+  ip_address_version = "IPV4"
+  addresses          = ["74.73.92.97/32"]
+
+  tags = {
+    Tag1 = "Value1"
+    Tag2 = "Value2"
   }
 }
