@@ -24,14 +24,14 @@ resource "aws_waf_ipset" "ipset" {
 
   ip_set_descriptors {
     type  = "IPV4"
-    value = "174.73.92.97/24"
+    value = "74.73.92.97/32"
   }
 }
 
 resource "aws_waf_rule" "wafrule" {
   depends_on  = [aws_waf_ipset.ipset]
-  name        = "WAF_Rule"
-  metric_name = "WAF_Rule_metric"
+  name        = "WAFRule"
+  metric_name = "WAFRuleMetric"
 
   predicates {
     data_id = aws_waf_ipset.ipset.id
