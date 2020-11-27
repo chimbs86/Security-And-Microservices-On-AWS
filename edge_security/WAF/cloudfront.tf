@@ -24,7 +24,7 @@ module "cloudfront_distribution" {
 resource "aws_wafv2_rule_group" "example" {
   capacity = 10
   name     = "example-rule-group"
-  scope    = "GLOBAL"
+  scope    = "CLOUDFRONT"
 
   rule {
     name     = "rule-1"
