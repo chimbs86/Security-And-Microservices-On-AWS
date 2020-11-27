@@ -50,7 +50,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
 
   price_class = "PriceClass_200"
 
-  web_acl_id = var.set_web_acl?var.web_acl_arn:null
+  web_acl_id = var.web_acl_arn
 
   restrictions {
     geo_restriction {

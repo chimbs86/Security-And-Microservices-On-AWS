@@ -16,6 +16,7 @@ module "cloudfront_distribution" {
   domain_name = "fallacyis.com"
   origin_bucket_name = aws_s3_bucket.b.bucket_regional_domain_name
   origin_id = local.s3_origin_id
+  web_acl_arn = aws_waf_web_acl.waf_acl.arn
 }
 
 resource "aws_waf_ipset" "ipset" {
