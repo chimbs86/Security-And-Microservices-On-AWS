@@ -1,10 +1,3 @@
-provider "aws" {
-  version = "~> 3.0"
-  region = var.aws_region
+module "setup" {
+  source = "../basic"
 }
-provider "random" {
-  version = "2.2"
-}
-
-
-
