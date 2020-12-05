@@ -10,7 +10,7 @@ resource "aws_kms_key" "symmetric" {
 resource "aws_kms_key" "asymmetric" {
   description             = "KMS key 1"
   deletion_window_in_days = 7
-  customer_master_key_spec = "ECC_SECG_P256K1" // this is the default value
+  customer_master_key_spec = "RSA_4096"
   enable_key_rotation =  false
 
 }
