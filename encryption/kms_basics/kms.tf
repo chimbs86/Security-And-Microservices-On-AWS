@@ -8,6 +8,10 @@ resource "aws_kms_key" "symmetric" {
 
 
 resource "aws_kms_key" "asymmetric" {
+  tags = {
+    Name = "Sample-Asymmetric-Key"
+  }
+  alias = "Asymmetric"
   description             = "KMS key 1"
   deletion_window_in_days = 7
   customer_master_key_spec = "RSA_4096"
