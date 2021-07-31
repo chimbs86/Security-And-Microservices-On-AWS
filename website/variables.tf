@@ -7,5 +7,6 @@ provider "aws" {
   version = "~> 3.0"
   alias   = "ue1"
 
-  region = var.aws_region
+  region = "us-east-1"
+//  region = var.aws_region
 }
