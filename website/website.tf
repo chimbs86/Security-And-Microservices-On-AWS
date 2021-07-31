@@ -37,3 +37,14 @@ module "peterdotcloud_website" {
     aws.ue1 = aws.ue1
   }
 }
+module "docker_pullpush" {
+  source         = "TechToSpeech/ecr-mirror/aws"
+  version        = "0.0.6"
+  aws_account_id = data.aws_caller_identity.current.account_id
+  aws_region     = local.aws_region
+  docker_source  = "wordpress:php7.4-apache"
+  aws_profile    = "rite"
+  ecr_repo_name  = module.peterdotcloud_website.wordpress_ecr_repository
+  ecr_repo_tag   = "base"
+  depends_on     = [module.peterdotcloud_website]
+}
