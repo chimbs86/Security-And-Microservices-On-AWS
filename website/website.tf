@@ -10,7 +10,7 @@ data "aws_caller_identity" "current" {}
 
 module "peterdotcloud_website" {
   source         = "TechToSpeech/serverless-static-wordpress/aws"
-  version        = "0.1.0"
+  version        = "0.1.2"
   main_vpc_id    = "vpc-0ddea9dbb66155fdf"
   subnet_ids     = ["subnet-080309f399ac79d92","subnet-0a99b670c9f21bb1c"]
   aws_account_id = data.aws_caller_identity.current.account_id

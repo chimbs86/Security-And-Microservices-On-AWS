@@ -1,3 +1,0 @@
-module "setup" {
-  source = "../basic"
-}
