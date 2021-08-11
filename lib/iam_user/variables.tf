@@ -2,6 +2,6 @@ variable name{
   type = string
 }
 
-variable policy_file{
+variable policy_json{
   type = string
 }

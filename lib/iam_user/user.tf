@@ -6,5 +6,5 @@ resource "aws_iam_user_policy" "user" {
   name = "policy_${var.name}"
   user = aws_iam_user.user.name
 
-  policy = file(var.policy_file)
+  policy = var.policy_json
 }
