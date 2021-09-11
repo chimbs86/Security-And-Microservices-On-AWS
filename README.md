@@ -1,3 +1,5 @@
+
+# This is still work in progress. I have more that I havent committed yet. Please email me if you want to see some of the work in progress.
 # Code for Security and Microservices on AWS
 
 This is the codebase required for following along with the book - Security and Microservices on AWS. I will try my best to add as much supplemental code as possible to make it easy to setup a terraform repository to create a reference implementation that I discuss in the book.
@@ -34,7 +36,13 @@ A basic understanding of terraform is required. But a very basic one. You can al
 
 # Folder Structure
 
-* [lib](lib) folder contains common modules that are used by other modules. This will contain boilerplate code that you use to create various reusable parts of our application. 
-* [teardown](teardown) folder is what you can point your terraform to once you are done running the experiment. This folder has no resources and can act as a way of cleaning up all of your test resources. 
+* [Appendix A](appendixa) - Terraform Cloud in 5 minutes
+* [Chapter 2](chapter2) - Authentication and Authorization
+* [Chapter 3](chapter3) - Foundation of encryption
+* [Chapter 5](chapter5) - Network Security
+* [Chapter 6](chapter6) - Public facing application security
+* [Chapter 7](chapter7) - Security in Transit
+* [lib](lib)-The Folder containing common modules that are used by other modules. This will contain boilerplate code that you use to create various reusable parts of our application. 
+* [teardown](teardown)-The Folder that you can point your terraform to once you are done running the experiment. This folder has no resources and can act as a way of cleaning up all of your test resources. 
 
 
