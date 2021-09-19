@@ -10,7 +10,7 @@ provider "aws" {
 }
 
 module "ses-email-forwarding" {
-  source = "git@github.com:alemuro/terraform-ses-email-forwarding.git"
+  source = "https://github.com/alemuro/terraform-aws-ses-email-forwarding.git"
 
   dns_provider     = "aws"
   domain           = "mba.finance"
