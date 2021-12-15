@@ -1,7 +1,7 @@
 
-# I am working with O'Reilly with creating an interactive setup. That may be a better substitute to this repository. I will come back to this repository but thought of trying out this new way of creating an interactive AWS environment
-# This is still work in progress. I have more that I havent committed yet. Please email me if you want to see some of the work in progress.
-# Code for Security and Microservices on AWS
+# I am working with O'Reilly on creating an interactive setup. That may be a better substitute to this repository. I will come back to this repository but thought of trying out this new way of creating an interactive AWS environment
+## This is still work in progress. I have more that I havent committed yet. Please email me if you want to see some of the work in progress.
+## Code for Security and Microservices on AWS
 
 This is the codebase required for following along with the book - Security and Microservices on AWS. I will try my best to add as much supplemental code as possible to make it easy to setup a terraform repository to create a reference implementation that I discuss in the book.
 
