@@ -1,4 +1,5 @@
 
+#I am working with O'Reilly with creating an interactive setup. That may be a better substitute to this repository. I will come back to this repository but thought of trying out this new way of creating an interactive AWS environment
 # This is still work in progress. I have more that I havent committed yet. Please email me if you want to see some of the work in progress.
 # Code for Security and Microservices on AWS
 
